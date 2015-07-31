@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Email2Db extends Migration
+class EmailLog extends Migration
 {
     /**
      * Run the migrations.
