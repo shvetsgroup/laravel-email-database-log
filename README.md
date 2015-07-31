@@ -19,7 +19,7 @@ Next add the service provider and the alias to `app/config/app`.
 ```php
 'providers' => [
     // ...
-    'ShvetsGroup\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider',
+    ShvetsGroup\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider::class,
 ],
 ```
 
