@@ -27,6 +27,6 @@ class EmailLog extends Migration
      */
     public function down()
     {
-        Schema::drop('mail_log');
+        Schema::drop('email_log');
     }
 }
