@@ -4,6 +4,7 @@ namespace ShvetsGroup\LaravelEmailDatabaseLog;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Illuminate\Mail\Events\MessageSending;
 
 class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
 {
@@ -13,8 +14,8 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
      * @var array
      */
     protected $listen = [
-        'mailer.sending' => [
-            'ShvetsGroup\LaravelEmailDatabaseLog\EmailLogger',
+        MessageSending::class => [
+            EmailLogger::class,
         ],
     ];
 
@@ -27,7 +28,7 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
     public function boot(DispatcherContract $events)
     {
         parent::boot($events);
-        
+
         $this->publishes([
             __DIR__.'/../../database/migrations/' => database_path('migrations')
         ], 'migrations');

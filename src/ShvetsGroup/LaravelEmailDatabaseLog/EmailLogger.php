@@ -3,17 +3,19 @@
 namespace ShvetsGroup\LaravelEmailDatabaseLog;
 
 use DB;
+use Illuminate\Mail\Events\MessageSending;
 
 class EmailLogger
 {
     /**
      * Handle the event.
      *
-     * @param \Swift_Message $message
-     * @return void
+     * @param MessageSending $event
      */
-    public function handle(\Swift_Message $message)
+    public function handle(MessageSending $event)
     {
+        $message = $event->message;
+
         DB::table('email_log')->insert([
             'date' => date('Y-m-d H:i:s'),
             'to' => $message->getHeaders()->get('To')->getFieldBody(),
