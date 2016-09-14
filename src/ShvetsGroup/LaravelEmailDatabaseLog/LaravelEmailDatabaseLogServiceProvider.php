@@ -25,9 +25,9 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
      * @param  \Illuminate\Contracts\Events\Dispatcher  $events
      * @return void
      */
-    public function boot(DispatcherContract $events)
+    public function boot()
     {
-        parent::boot($events);
+        parent::boot();
 
         $this->publishes([
             __DIR__.'/../../database/migrations/' => database_path('migrations')
