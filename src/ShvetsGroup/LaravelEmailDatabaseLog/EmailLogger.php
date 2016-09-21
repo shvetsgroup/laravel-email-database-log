@@ -18,7 +18,8 @@ class EmailLogger
 
         DB::table('email_log')->insert([
             'date' => date('Y-m-d H:i:s'),
-            'to' => $message->getHeaders()->get('To')->getFieldBody(),
+            'to' => !$message->getHeaders()->get('To') ? null : $message->getHeaders()->get('To')->getFieldBody(),
+			'bcc' => !$message->getHeaders()->get('Bcc') ? null : $message->getHeaders()->get('Bcc')->getFieldBody(),
             'subject' => $message->getHeaders()->get('Subject')->getFieldBody(),
             'body' => $this->getMimeEntityString($message),
         ]);
