@@ -23,7 +23,7 @@ class AddBccColumnEmailLog extends Migration {
 	public function down() {
 		Schema::table('email_log', function ($table) {
 			$table->string('to')->change();
-			$table->droPColumn('bcc');
+			$table->dropColumn('bcc');
 		});
 	}
 }
