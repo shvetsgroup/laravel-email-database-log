@@ -27,8 +27,6 @@ Next add the service provider and the alias to `app/config/app`.
 Now, run this in terminal:
 
 ```bash
-php artisan vendor:publish --provider="ShvetsGroup\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider" --tag="migrations"
-
 php artisan migrate
 ```
 

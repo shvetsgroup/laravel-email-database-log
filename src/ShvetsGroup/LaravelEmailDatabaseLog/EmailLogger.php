@@ -18,27 +18,42 @@ class EmailLogger
 
         DB::table('email_log')->insert([
             'date' => date('Y-m-d H:i:s'),
-            'to' => !$message->getHeaders()->get('To') ? null : $message->getHeaders()->get('To')->getFieldBody(),
-			'bcc' => !$message->getHeaders()->get('Bcc') ? null : $message->getHeaders()->get('Bcc')->getFieldBody(),
-            'subject' => $message->getHeaders()->get('Subject')->getFieldBody(),
-            'body' => $this->getMimeEntityString($message),
+            'from' => $this->formatAddressField($message, 'From'),
+            'to' => $this->formatAddressField($message, 'To'),
+            'cc' => $this->formatAddressField($message, 'Cc'),
+            'bcc' => $this->formatAddressField($message, 'Bcc'),
+            'subject' => $message->getSubject(),
+            'body' => $message->getBody(),
+            'headers' => (string)$message->getHeaders(),
+            'attachments' => $message->getChildren() ? implode("\n\n", $message->getChildren()) : null,
         ]);
     }
 
     /**
-     * Get a loggable string out of a Swiftmailer entity.
+     * Format address strings for sender, to, cc, bcc.
      *
-     * @param  \Swift_Mime_MimeEntity $entity
-     * @return string
+     * @param $message
+     * @param $field
+     * @return null|string
      */
-    protected function getMimeEntityString(\Swift_Mime_MimeEntity $entity)
+    function formatAddressField($message, $field)
     {
-        $string = (string) $entity->getHeaders().PHP_EOL.$entity->getBody();
+        $headers = $message->getHeaders();
 
-        foreach ($entity->getChildren() as $children) {
-            $string .= PHP_EOL.PHP_EOL.$this->getMimeEntityString($children);
+        if (!$headers->has($field)) {
+            return null;
         }
 
-        return $string;
+        $mailboxes = $headers->get($field)->getFieldBodyModel();
+
+        $strings = [];
+        foreach ($mailboxes as $email => $name) {
+            $mailboxStr = $email;
+            if (null !== $name) {
+                $mailboxStr = $name . ' <' . $mailboxStr . '>';
+            }
+            $strings[] = $mailboxStr;
+        }
+        return implode(', ', $strings);
     }
 }
