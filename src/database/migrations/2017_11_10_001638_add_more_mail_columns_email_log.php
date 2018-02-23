@@ -30,11 +30,7 @@ class AddMoreMailColumnsEmailLog extends Migration
     public function down()
     {
         Schema::table('email_log', function ($table) {
-            $table->dropColumn('id');
-            $table->dropColumn('from');
-            $table->dropColumn('cc');
-            $table->dropColumn('headers');
-            $table->dropColumn('attachments');
+            $table->dropColumn(['id', 'from', 'cc', 'headers', 'attachments']);
         });
     }
 }
