@@ -18,5 +18,11 @@
             "ShvetsGroup\\LaravelEmailDatabaseLog\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ShvetsGroup\\LaravelEmailDatabaseLog\\LaravelEmailDatabaseLogServiceProvider"
+            ]
+        }
+    }
 }
