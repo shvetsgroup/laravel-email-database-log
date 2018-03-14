@@ -16,16 +16,6 @@ composer require shvetsgroup/laravel-email-database-log
 
 You can skip this step if your version of Laravel is 5.5 or above. Otherwise, you have to add the following to your config/app.php in the providers array:
 
-```json
-{
-    "require": {
-        "shvetsgroup/laravel-email-database-log": "*"
-    }
-}
-```
-
-Next add the service provider and the alias to `app/config/app`.
-
 ```php
 'providers' => [
     // ...
