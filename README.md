@@ -6,7 +6,11 @@ A simple database logger for all outgoing emails sent by Laravel website.
 
 ## Step 1: Composer
 
-Laravel Email Database Log can be installed via [composer](http://getcomposer.org) by requiring the `shvetsgroup/laravel-email-database-log` package in your project's `composer.json`.
+Laravel Email Database Log can be installed via [composer](http://getcomposer.org) by running this line in terminal:
+
+```bash
+composer require shvetsgroup/laravel-email-database-log
+```
 
 ## Step 2: Configuration
 
