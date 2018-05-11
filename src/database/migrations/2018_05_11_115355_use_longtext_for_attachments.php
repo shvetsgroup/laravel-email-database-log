@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class UseLongtextForAttachments extends Migration {
 
@@ -10,7 +11,9 @@ class UseLongtextForAttachments extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		DB::statement('ALTER TABLE email_log MODIFY COLUMN attachments LONGTEXT');
+		Schema::table('email_log', function (Blueprint $table) {
+			$table->longText('attachments')->nullable()->change();
+		});
 	}
 
 	/**
@@ -19,7 +22,9 @@ class UseLongtextForAttachments extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		DB::statement('ALTER TABLE email_log MODIFY COLUMN attachments TEXT');
+		Schema::table('email_log', function (Blueprint $table) {
+			$table->text('attachments')->nullable()->change();
+		});
 	}
 
 }
