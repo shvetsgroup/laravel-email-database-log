@@ -4,6 +4,7 @@ namespace ShvetsGroup\LaravelEmailDatabaseLog;
 
 use DB;
 use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Support\Facades\Storage;
 
 class EmailLogger
 {
