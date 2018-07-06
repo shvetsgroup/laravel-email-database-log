@@ -16,6 +16,15 @@ class EmailLogger
     {
         $message = $event->message;
 
+        $messageId = strtok($message->getId(), '@');
+
+        $attachments = [];
+        foreach ($message->getChildren() as $child) {
+            $attachmentPath = 'email_log_attachments/' . $messageId . '/' . $child->getFilename();
+            Storage::put($attachmentPath,$child->getBody());
+            array_push($attachments,$attachmentPath);
+        }
+
         DB::table('email_log')->insert([
             'date' => date('Y-m-d H:i:s'),
             'from' => $this->formatAddressField($message, 'From'),
@@ -25,8 +34,8 @@ class EmailLogger
             'subject' => $message->getSubject(),
             'body' => $message->getBody(),
             'headers' => (string)$message->getHeaders(),
-            'attachments' => $message->getChildren() ? implode("\n\n", $message->getChildren()) : null,
-            'messageId' => strtok($message->getId(), '@'),
+            'attachments' => empty($attachments) ? null : implode(', ', $attachments),
+            'messageId' => $messageId,
         ]);
     }
 
