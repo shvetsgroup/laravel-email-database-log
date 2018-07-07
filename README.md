@@ -34,3 +34,14 @@ php artisan migrate
 # Usage
 
 After installation, any email sent by your website will be logged to `email_log` table in the site's database.
+
+If using queues on your server you will need to restart the worker for the library to work:
+
+```
+Remember, queue workers are long-lived processes and store the booted application state in memory. 
+As a result, they will not notice changes in your code base after they have been started. 
+So, during your deployment process, be sure to restart your queue workers.
+
+
+https://laravel.com/docs/5.6/queues#running-the-queue-worker
+```
