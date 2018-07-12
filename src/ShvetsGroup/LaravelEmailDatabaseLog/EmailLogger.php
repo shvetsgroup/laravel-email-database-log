@@ -22,8 +22,8 @@ class EmailLogger
         $attachments = [];
         foreach ($message->getChildren() as $child) {
             $attachmentPath = 'email_log_attachments/' . $messageId . '/' . $child->getFilename();
-            Storage::put($attachmentPath,$child->getBody());
-            array_push($attachments,$attachmentPath);
+            Storage::put($attachmentPath, $child->getBody());
+            array_push($attachments, $attachmentPath);
         }
 
         DB::table('email_log')->insert([
