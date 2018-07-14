@@ -46,6 +46,8 @@ Config contains only one key at the moment `folder` and this is the name of the 
 
 After installation, any email sent by your website will be logged to `email_log` table in the site's database.
 
+Any attachments will be saved in `storage/email_log_attachments` folder. The `email_log_attachments` can be changed by publishing the config file and changing the 'folder' value.
+
 If using queues on your server you will need to restart the worker for the library to work:
 
 ```
