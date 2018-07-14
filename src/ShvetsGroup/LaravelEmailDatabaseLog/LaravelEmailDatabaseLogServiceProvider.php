@@ -17,6 +17,13 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
             EmailLogger::class,
         ],
     ];
+    
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/main.php', 'email_log'
+        );
+    }
 
     /**
      * Register any other events for your application.
@@ -28,5 +35,8 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
         parent::boot();
 
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $this->publishes([
+            __DIR__ . '/config' => config_path('email_log'),
+        ]);
     }
 }
