@@ -1,6 +1,7 @@
 # Laravel Email Database Log
 
 A simple database logger for all outgoing emails sent by Laravel website.
+Forked from ShvetsGroup\LaravelEmailDatabaseLog.
 
 # Installation
 
@@ -9,7 +10,7 @@ A simple database logger for all outgoing emails sent by Laravel website.
 Laravel Email Database Log can be installed via [composer](http://getcomposer.org) by running this line in terminal:
 
 ```bash
-composer require shvetsgroup/laravel-email-database-log
+composer require dmcbrn/laravel-email-database-log
 ```
 
 ## Step 2: Configuration
@@ -19,7 +20,7 @@ You can skip this step if your version of Laravel is 5.5 or above. Otherwise, yo
 ```php
 'providers' => [
     // ...
-    ShvetsGroup\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider::class,
+    Dmcbrn\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider::class,
 ],
 ```
 
@@ -36,7 +37,7 @@ php artisan migrate
 To publish config file run this in terminal:
 
 ```bash
-php artisan vendor:publish --provider="ShvetsGroup\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider"
+php artisan vendor:publish --provider="DmcBrn\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider"
 ```
 
 Config contains only one key at the moment `folder` and this is the name of the folder where the attachments will be saved.
