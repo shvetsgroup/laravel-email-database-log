@@ -31,6 +31,16 @@ Now, run this in terminal:
 php artisan migrate
 ```
 
+## Step 4: Config
+
+To publish config file run this in terminal:
+
+```bash
+php artisan vendor:publish --provider="ShvetsGroup\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider"
+```
+
+Config contains only one key at the moment `folder` and this is the name of the folder where the attachments will be saved.
+
 # Usage
 
 After installation, any email sent by your website will be logged to `email_log` table in the site's database.
