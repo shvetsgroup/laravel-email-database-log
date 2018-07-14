@@ -37,6 +37,7 @@ class EmailLogger
             'headers' => (string)$message->getHeaders(),
             'attachments' => empty($attachments) ? null : implode(', ', $attachments),
             'messageId' => $messageId,
+            'mail_driver' => config('mail.driver'),
         ]);
     }
 
