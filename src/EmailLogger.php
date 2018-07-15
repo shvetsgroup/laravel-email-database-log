@@ -2,7 +2,6 @@
 
 namespace Dmcbrn\LaravelEmailDatabaseLog;
 
-use DB;
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +25,7 @@ class EmailLogger
             $attachments[] = $attachmentPath;
         }
 
-        DB::table('email_log')->insert([
+        EmailLog::create([
             'date' => date('Y-m-d H:i:s'),
             'from' => $this->formatAddressField($message, 'From'),
             'to' => $this->formatAddressField($message, 'To'),
