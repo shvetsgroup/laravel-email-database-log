@@ -2,7 +2,7 @@
 
 Route::group([
     'prefix' => config('email_log.routes_prefix', ''),
-    'middleware' => config('email_log.access_middleware', null)
+    'middleware' => array_filter(['web',config('email_log.access_middleware', null)]),
 ], function(){
     Route::get('/email-log', ['as' => 'email-log', 'uses' => 'Dmcbrn\LaravelEmailDatabaseLog\EmailLogController@index']);
     Route::get('/email-log/fetch-attachment', ['as' => 'email-log.fetch-attachment', 'uses' => 'Dmcbrn\LaravelEmailDatabaseLog\EmailLogController@fetchAttachment']);
