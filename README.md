@@ -42,12 +42,14 @@ php artisan vendor:publish --provider="DmcBrn\LaravelEmailDatabaseLog\LaravelEma
 
 Config contains three parameters:
 
-    //name of the folder where the attachments will be saved
-    'folder' => env('EMAIL_LOG_ATTACHMENT_FOLDER','email_log_attachments'),
-    //to prevent access to list of logged emails add a middleware
-    'access_middleware' => env('EMAIL_LOG_ACCESS_MIDDLEWARE',null),
-    //this parameter prefixes the routes for listing of logged emails
-    'routes_prefix' => env('EMAIL_LOG_ROUTES_PREFIX',''),
+```php
+//name of the folder where the attachments will be saved
+'folder' => env('EMAIL_LOG_ATTACHMENT_FOLDER','email_log_attachments'),
+//to prevent access to list of logged emails add a middleware
+'access_middleware' => env('EMAIL_LOG_ACCESS_MIDDLEWARE',null),
+//this parameter prefixes the routes for listing of logged emails
+'routes_prefix' => env('EMAIL_LOG_ROUTES_PREFIX',''),
+```
 
 # Usage
 
