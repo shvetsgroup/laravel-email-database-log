@@ -68,6 +68,6 @@ https://laravel.com/docs/5.6/queues#running-the-queue-worker
 
 You can review sent emails using the following URI `/email-log`.
 
-You can prefix this route by adding something like `EMAIL_LOG_ROUTES_PREFIX=prefix/` to your .env file.
+You can prefix this URI by adding something like `EMAIL_LOG_ROUTES_PREFIX=prefix/` to your .env file.
 
-You can protect this route using middleware by adding something like `EMAIL_LOG_ACCESS_MIDDLEWARE=auth` to your .env file.
+You can protect this URI using middleware by adding something like `EMAIL_LOG_ACCESS_MIDDLEWARE=auth` to your .env file.
