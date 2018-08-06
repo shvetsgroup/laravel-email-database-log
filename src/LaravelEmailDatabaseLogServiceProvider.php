@@ -20,6 +20,10 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
     
     public function register()
     {
+//        $this->app->make('Dmcbrn\LaravelEmailDatabaseLog\EmailLogController');
+        
+        $this->loadViewsFrom(__DIR__.'/../views','email-logger');
+        
         $this->mergeConfigFrom(
             __DIR__ . '/../config/email_log.php', 'email_log'
         );
@@ -34,6 +38,7 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
     {
         parent::boot();
 
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->publishes([
             __DIR__ . '/../config/email_log.php' => config_path('email_log.php'),
