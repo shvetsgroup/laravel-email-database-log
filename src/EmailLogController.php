@@ -9,7 +9,7 @@ class EmailLogController extends Controller {
 
     public function index()
     {
-        $emails = EmailLog::orderBy('id','desc')->paginate(20);
+        $emails = EmailLog::select('id','date','from','to','subject')->orderBy('id','desc')->paginate(20);
 
         return view('email-logger::index', compact('emails'));
     }
