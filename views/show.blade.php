@@ -21,7 +21,10 @@
                         @foreach($attachmentsArray as $attachment)
                             <li>
                                 @if(Illuminate\Support\Facades\Storage::exists($attachment))
-                                    <a href="{{ route('email-log.fetch-attachment') }}">{{ basename($attachment) }}</a>
+                                    <a href="{{ route('email-log.fetch-attachment', [
+                                        'id' => $email->id,
+                                        'attachment' => $key,
+                                    ]) }}">{{ basename($attachment) }}</a>
                                 @else
                                     <a href="#!" style="cursor: not-allowed;">{{ basename($attachment) }} - File Not Found</a>
                                 @endif

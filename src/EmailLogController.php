@@ -21,9 +21,11 @@ class EmailLogController extends Controller {
         return view('email-logger::show', compact('email'));
     }
 
-    public function fetchAttachment()
+    public function fetchAttachment($id,$attachment)
     {
-        $attachmentFullPath = 'email_log_attachments/ec8ba6a0d7323e9f1ad6461ac98c9994/classes-schedule-104712.ics';
-        return Storage::get($attachmentFullPath);
+        $email = EmailLog::select('id','attachments')->find($id);
+        $attachmentFullPath = explode(',',$email->attachments)[$attachment];
+
+        return Storage::get(urldecode($attachmentFullPath));
     }
 }

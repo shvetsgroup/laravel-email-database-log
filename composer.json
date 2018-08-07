@@ -10,7 +10,9 @@
         }
     ],
     "require": {
-        "illuminate/support": "~5.0",
+        "illuminate/support": "~5.5",
+        "illuminate/database": "~5.5",
+        "illuminate/mail": "~5.5",
         "doctrine/dbal": "*"
     },
     "autoload": {
