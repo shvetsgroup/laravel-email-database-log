@@ -40,7 +40,16 @@ To publish config file run this in terminal:
 php artisan vendor:publish --provider="DmcBrn\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider"
 ```
 
-Config contains only one key at the moment `folder` and this is the name of the folder where the attachments will be saved.
+Config contains three parameters:
+
+```php
+//name of the folder where the attachments will be saved
+'folder' => env('EMAIL_LOG_ATTACHMENT_FOLDER','email_log_attachments'),
+//to prevent access to list of logged emails add a middleware
+'access_middleware' => env('EMAIL_LOG_ACCESS_MIDDLEWARE',null),
+//this parameter prefixes the routes for listing of logged emails
+'routes_prefix' => env('EMAIL_LOG_ROUTES_PREFIX',''),
+```
 
 # Usage
 
@@ -59,6 +68,8 @@ So, during your deployment process, be sure to restart your queue workers.
 https://laravel.com/docs/5.6/queues#running-the-queue-worker
 ```
 
-You can review sent emails using the route `/email-log`.
-You can prefix this route by adding something like `EMAIL_LOG_ROUTES_PREFIX=prefix/` to your .env file.
-You can protect this route using middleware by adding something like `EMAIL_LOG_ACCESS_MIDDLEWARE=auth` to your .env file.
+You can review sent emails using the following URI `/email-log`.
+
+You can prefix this URI by adding something like `EMAIL_LOG_ROUTES_PREFIX=prefix/` to your .env file.
+
+You can protect this URI using middleware by adding something like `EMAIL_LOG_ACCESS_MIDDLEWARE=auth` to your .env file.
