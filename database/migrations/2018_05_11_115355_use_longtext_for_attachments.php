@@ -1,4 +1,4 @@
-<?php
+2018_09_10_141916_create_email_log_events_table.php<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

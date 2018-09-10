@@ -4,14 +4,14 @@ namespace Dmcbrn\LaravelEmailDatabaseLog;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EmailLog extends Model
+class EmailLogEvent extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'email_log';
+    protected $table = 'email_log_events';
 
     /**
      * Disable timestamps for the model.
@@ -26,17 +26,7 @@ class EmailLog extends Model
      * @var array
      */
     protected $fillable = [
-        'date',
-        'from',
-        'to',
-        'cc',
-        'bcc',
-        'subject',
-        'body',
-        'headers',
-        'attachments',
-        'messageId',
-        'mail_driver',
+        'messageId', 'event', 'data',
     ];
 
     /**
@@ -45,16 +35,16 @@ class EmailLog extends Model
      * @var array
      */
     protected $dates = [
-        'date',
+        'created_at', 'updated_at',
     ];
 
     /**
-     * The Events belonging to this Email.
+     * The Email to which this Event belongs to.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function events()
+    public function email()
     {
-        return $this->hasMany('App\EmailLogEvent','messageId','messageId');
+        return $this->belongsTo('App\EmailLog','messageId','messageId');
     }
 }
