@@ -32,19 +32,19 @@ class EmailLogController extends Controller {
     public function webhookEvents(Request $request)
     {
         //verify
-        $verified = $this->verify(env('MAILGUN_SECRET', null), $request->token, $request->timestamp, $request->signature);
+        $verified = $this->verify(env('MAILGUN_SECRET', null), $request->signature['token'], $request->signature['timestamp'], $request->signature['signature']);
         if(!$verified)
             return response('Error', 400)->header('Content-Type', 'text/plain');
 
         //find email
-        $email = EmailLog::select('id','messageId')->where('messageId',$request->id)->first();
+        $email = EmailLog::select('id','messageId')->where('messageId',strtok($request->{'event-data'}['message']['headers']['message-id'],'@'))->first();
         if(!$email)
             return response('Error', 400)->header('Content-Type', 'text/plain');
 
         //create event
         EmailLogEvent::create([
             'messageId' => $email->id,
-            'event' => $request->event,
+            'event' => $request->{'event-data'}['event'],
             'data' => json_encode($request->all()),
         ]);
 
