@@ -3,6 +3,7 @@
 namespace Dmcbrn\LaravelEmailDatabaseLog;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class EmailLogController extends Controller {
