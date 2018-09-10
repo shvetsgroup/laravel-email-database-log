@@ -22,7 +22,14 @@
 
         <ul>
             @foreach($emails as $email)
-                <li>{{ $email->date }} - From: {{ $email->from }}, To: {{ $email->to }}, Subject: <strong>{{ $email->subject }}</strong> <a href="{{ route('email-log.show', $email->id) }}">VIEW</a></li>
+                <li>
+                    {{ $email->date }} - From: {{ $email->from }}, To: {{ $email->to }}, Subject: <strong>{{ $email->subject }}</strong> <a href="{{ route('email-log.show', $email->id) }}">VIEW</a>
+                    <ul>
+                        @foreach($email->events as $event)
+                            <li><strong>{{ $event->event }}</strong> {{ $event->created_at }}</li>
+                        @endforeach
+                    </ul>
+                </li>
             @endforeach
         </ul>
 

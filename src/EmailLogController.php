@@ -9,7 +9,14 @@ class EmailLogController extends Controller {
 
     public function index()
     {
-        $emails = EmailLog::select('id','date','from','to','subject')->orderBy('id','desc')->paginate(20);
+        $emails = EmailLog::with([
+                'events' => function($q) {
+                    $q->select('messageId','created_at','event');
+                }
+            ])
+            ->select('id','date','from','to','subject')
+            ->orderBy('id','desc')
+            ->paginate(20);
 
         return view('email-logger::index', compact('emails'));
     }
