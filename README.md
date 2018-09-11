@@ -73,3 +73,17 @@ You can review sent emails using the following URI `/email-log`.
 You can prefix this URI by adding something like `EMAIL_LOG_ROUTES_PREFIX=prefix/` to your .env file.
 
 You can protect this URI using middleware by adding something like `EMAIL_LOG_ACCESS_MIDDLEWARE=auth` to your .env file.
+
+## MailGun webhooks
+
+You can use Mailgun webhooks to log webhook events. In your MailGun Webhooks section add:
+
+```
+https://example.com/email-log/webhooks/event
+```
+
+for all of the events. If you used a `prefix` in the config file then this should be reflected in the url:
+
+```
+https://example.com/your-prefix/email-log/webhooks/event
+```
