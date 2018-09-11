@@ -37,19 +37,40 @@ class EmailLogController extends Controller {
         return Storage::get(urldecode($attachmentFullPath));
     }
 
-    public function webhookEvents(Request $request)
+    public function createEvent(Request $request)
     {
         //verify
-        $verified = $this->verify(env('MAILGUN_SECRET', null), $request->signature['token'], $request->signature['timestamp'], $request->signature['signature']);
-        if(!$verified)
-            return response('Error', 400)->header('Content-Type', 'text/plain');
+        if(!$this->verify($request))
+            return response('Error: verification failed', 400)->header('Content-Type', 'text/plain');
 
-        //find email
-        $email = EmailLog::select('id','messageId')->where('messageId',strtok($request->{'event-data'}['message']['headers']['message-id'],'@'))->first();
+        //save event
+        return $this->saveEvent($request);
+    }
+
+    private function verify($request)
+    {
+        //get needed data
+        $apiKey = env('MAILGUN_SECRET', null);
+        $token = $request->signature['token'];
+        $timestamp = $request->signature['timestamp'];
+        $signature = $request->signature['signature'];
+
+        //check if the timestamp is fresh
+        if (abs(time() - $timestamp) > 15)
+            return false;
+
+        //returns true if signature is valid
+        return hash_hmac('sha256', $timestamp.$token, $apiKey) === $signature;
+    }
+
+    private function saveEvent(Request $request)
+    {
+        //get email
+        $email = $this->getEmail($request);
         if(!$email)
-            return response('Error', 400)->header('Content-Type', 'text/plain');
+            return response('Error: no E-mail found', 400)->header('Content-Type', 'text/plain');
 
-        //create event
+        //save event
         EmailLogEvent::create([
             'messageId' => $email->id,
             'event' => $request->{'event-data'}['event'],
@@ -60,14 +81,10 @@ class EmailLogController extends Controller {
         return response('Success', 200)->header('Content-Type', 'text/plain');
     }
 
-    private function verify($apiKey, $token, $timestamp, $signature)
+    private function getEmail(Request $request)
     {
-        //check if the timestamp is fresh
-        if (abs(time() - $timestamp) > 15) {
-            return false;
-        }
-
-        //returns true if signature is valid
-        return hash_hmac('sha256', $timestamp.$token, $apiKey) === $signature;
+        return EmailLog::select('id', 'messageId')
+            ->where('messageId', strtok($request->{'event-data'}['message']['headers']['message-id'], '@'))
+            ->first();
     }
 }
