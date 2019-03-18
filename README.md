@@ -37,7 +37,7 @@ php artisan migrate
 To publish config file run this in terminal:
 
 ```bash
-php artisan vendor:publish --provider="DmcBrn\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider"
+php artisan vendor:publish --provider="Dmcbrn\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider"
 ```
 
 Config contains three parameters:
