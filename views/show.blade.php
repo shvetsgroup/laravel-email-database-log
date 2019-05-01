@@ -18,7 +18,7 @@
             <li>Attachments:
                 @if(count($attachmentsArray = array_filter(explode(',',$email->attachments))) > 0)
                     <ul>
-                        @foreach($attachmentsArray as $attachment)
+                        @foreach($attachmentsArray as $key => $attachment)
                             <li>
                                 @if(Illuminate\Support\Facades\Storage::exists($attachment))
                                     <a href="{{ route('email-log.fetch-attachment', [
