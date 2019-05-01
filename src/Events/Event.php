@@ -3,7 +3,7 @@
 namespace Dmcbrn\LaravelEmailDatabaseLog\Events;
 
 use Dmcbrn\LaravelEmailDatabaseLog\EmailLog;
-use Dmcbrn\LaravelEmailDatabaseLog\Events\Interface\EventInterface;
+use Dmcbrn\LaravelEmailDatabaseLog\Events\Interfaces\EventInterface;
 
 abstract class Event implements EventInterface
 {
