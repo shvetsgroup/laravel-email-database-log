@@ -53,4 +53,22 @@ class EmailLogController extends Controller {
         //save event
         return $event->saveEvent($request);
     }
+    
+    public function deleteOldEmails(Request $request)
+    {
+        //validate
+        $request->validate([
+            'date' => 'required|date',
+        ]);
+
+        //get emails
+        $emails = EmailLog::select('id', 'date', 'messageId')->where('date', '<=', date("c", strtotime($request->date)))->get();
+
+        //delete attachments & emails
+        foreach ($emails as $email) { Storage::deleteDirectory(config('email_log.folder') . '/' . $email->messageId); }
+        $deleted = EmailLog::destroy($emails->pluck('id'));
+
+        //return
+        return redirect(route('email-log'))->with('status', 'Deleted ' . $deleted . ' emails logged before ' . date("r", strtotime($request->date)));
+    }
 }

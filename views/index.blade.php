@@ -14,11 +14,38 @@
             strong {
                 font-weight: bold;
             }
+            .message {
+                color: #1e5f1e;
+                padding: .25rem;
+                border: 1px solid #1e5f1e;
+                margin: .25rem;
+                text-align: center;
+            }
+            .error {
+                color: #ff3041;
+            }
         </style>
     </head>
 
     <body>
+        @if(session('status'))
+            <div class="message">{{ session('status') }}</div>
+        @endif
+
         <h1>List of Emails</h1>
+
+        <div class="actions">
+            <form action="{{ route('email-log.delete-old') }}" method="POST"
+                  onsubmit="return confirm('Are you sure? You will not be able to undo this actions!')">
+                {{ csrf_field() }}
+                <label for="date">Delete all emails older than this date (excludes the selected date):</label>
+                <input type="date" name="date" id="date">
+                @error('date')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+                <input type="submit" value="Delete">
+            </form>
+        </div>
 
         <ul>
             @foreach($emails as $email)
