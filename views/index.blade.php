@@ -24,6 +24,9 @@
             .error {
                 color: #ff3041;
             }
+            form {
+                margin: .5rem 0;
+            }
         </style>
     </head>
 
@@ -45,7 +48,35 @@
                 @enderror
                 <input type="submit" value="Delete">
             </form>
+
+            <form action="{{ route('email-log') }}" method="GET">
+                <p>Filter sent e-mails by:</p>
+                <label for="filterEmail"><code>to</code>:</label>
+                <input type="text" name="filterEmail" id="filterEmail" value="{{ $filterEmail ?: '' }}">
+                @error('filterEmail')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+                <br>
+                <label for="filterSubject"><code>subject</code>:</label>
+                <input type="text" name="filterSubject" id="filterSubject" value="{{ $filterSubject ?: '' }}">
+                @error('filterSubject')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+                <br><input type="submit" value="Search">
+                @if($filterEmail || $filterSubject)
+                    <a type="button" href="{{ route('email-log') }}">Clear filters</a>
+                @endif
+            </form>
         </div>
+
+        @if($emails->count() == 0)
+            <div>
+                <p>No results.</p>
+                @if($filterEmail || $filterSubject)
+                    <p>Try <a href="{{ route('email-log') }}">clearing</a> filters.</p>
+                @endif
+            </div>
+        @endif
 
         <ul>
             @foreach($emails as $email)

@@ -9,18 +9,34 @@ use Dmcbrn\LaravelEmailDatabaseLog\Events\EventFactory;
 
 class EmailLogController extends Controller {
 
-    public function index()
+    public function index(Request $request)
     {
+        //validate
+        $request->validate([
+            'filterEmail' => 'string',
+            'filterSubject' => 'string',
+        ]);
+
+        //get emails
+        $filterEmail = $request->filterEmail;
+        $filterSubject = $request->filterSubject;
         $emails = EmailLog::with([
                 'events' => function($q) {
                     $q->select('messageId','created_at','event');
                 }
             ])
             ->select('id','date','from','to','subject')
+            ->when($filterEmail, function($q) use($filterEmail) {
+                return $q->where('to','like','%'.$filterEmail.'%');
+            })
+            ->when($filterSubject, function($q) use($filterSubject) {
+                return $q->where('subject','like','%'.$filterSubject.'%');
+            })
             ->orderBy('id','desc')
             ->paginate(20);
 
-        return view('email-logger::index', compact('emails'));
+        //return
+        return view('email-logger::index', compact('emails','filterEmail','filterSubject'));
     }
 
     public function show($id)
