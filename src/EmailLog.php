@@ -55,6 +55,6 @@ class EmailLog extends Model
      */
     public function events()
     {
-        return $this->hasMany('Dmcbrn\LaravelEmailDatabaseLog\EmailLogEvent','messageId','id');
+        return $this->hasMany('Dmcbrn\LaravelEmailDatabaseLog\EmailLogEvent','messageId','messageId');
     }
 }

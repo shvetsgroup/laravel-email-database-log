@@ -25,7 +25,7 @@ class EmailLogController extends Controller {
                     $q->select('messageId','created_at','event');
                 }
             ])
-            ->select('id','date','from','to','subject')
+            ->select('id','messageId','date','from','to','subject')
             ->when($filterEmail, function($q) use($filterEmail) {
                 return $q->where('to','like','%'.$filterEmail.'%');
             })
