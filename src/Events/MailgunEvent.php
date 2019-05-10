@@ -32,7 +32,7 @@ class MailgunEvent extends Event
 
         //save event
         EmailLogEvent::create([
-            'messageId' => $email->id,
+            'messageId' => $email->messageId,
             'event' => $request->{'event-data'}['event'],
             'data' => json_encode($request->all()),
         ]);
