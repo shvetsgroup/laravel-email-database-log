@@ -4,6 +4,7 @@ namespace Dmcbrn\LaravelEmailDatabaseLog;
 
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Support\Facades\Storage;
+use Dmcbrn\LaravelEmailDatabaseLog\LaravelEvents\EmailLogged;
 
 class EmailLogger
 {
@@ -28,7 +29,7 @@ class EmailLogger
             }
         }
 
-        EmailLog::create([
+        $emailLog = EmailLog::create([
             'date' => date('Y-m-d H:i:s'),
             'from' => $this->formatAddressField($message, 'From'),
             'to' => $this->formatAddressField($message, 'To'),
@@ -41,6 +42,8 @@ class EmailLogger
             'messageId' => $messageId,
             'mail_driver' => config('mail.driver'),
         ]);
+
+        event(new EmailLogged($emailLog));
     }
 
     /**
