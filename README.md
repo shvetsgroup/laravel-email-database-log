@@ -57,6 +57,18 @@ After installation, any email sent by your website will be logged to `email_log`
 
 Any attachments will be saved in `storage/email_log_attachments` folder. The `email_log_attachments` can be changed by publishing the config file and changing the 'folder' value.
 
+If you want to process the logged email or save/format some additional data on your system you can hook up to the `Dmcbrn\LaravelEmailDatabaseLog\LaravelEvents\EmailLogged` event via a Laravel listener:
+
+https://laravel.com/docs/5.5/events#defining-listeners
+
+Don't forget to register the event:
+
+https://laravel.com/docs/5.5/events#registering-events-and-listeners
+
+If you're using Laravel >=5.8.9 you can use `Event Discovery` instead:
+
+https://laravel.com/docs/5.8/events#registering-events-and-listeners 
+
 If using queues on your server you will need to restart the worker for the library to work:
 
 ```
@@ -65,7 +77,7 @@ As a result, they will not notice changes in your code base after they have been
 So, during your deployment process, be sure to restart your queue workers.
 
 
-https://laravel.com/docs/5.6/queues#running-the-queue-worker
+https://laravel.com/docs/5.5/queues#running-the-queue-worker
 ```
 
 You can review sent emails using the following URI `/email-log`.
