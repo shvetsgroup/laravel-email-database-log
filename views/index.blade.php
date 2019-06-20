@@ -43,9 +43,16 @@
                 {{ csrf_field() }}
                 <label for="date">Delete all emails older than this date (excludes the selected date):</label>
                 <input type="date" name="date" id="date">
-                @error('date')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+                @if(false)
+                    <!-- Commented out as only available in 5.8.13 -->
+                    @error('date')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                @else
+                    @if($errors->has('date'))
+                        <span>{{ $errors->first('date') }}</span>
+                    @endif
+                @endif
                 <input type="submit" value="Delete">
             </form>
 
@@ -53,15 +60,29 @@
                 <p>Filter sent e-mails by:</p>
                 <label for="filterEmail"><code>to</code>:</label>
                 <input type="text" name="filterEmail" id="filterEmail" value="{{ $filterEmail ?: '' }}">
-                @error('filterEmail')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+                @if(false)
+                    <!-- Commented out as only available in 5.8.13 -->
+                    @error('filterEmail')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                @else
+                    @if($errors->has('filterEmail'))
+                        <span>{{ $errors->first('filterEmail') }}</span>
+                    @endif
+                @endif
                 <br>
                 <label for="filterSubject"><code>subject</code>:</label>
                 <input type="text" name="filterSubject" id="filterSubject" value="{{ $filterSubject ?: '' }}">
-                @error('filterSubject')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+                @if(false)
+                    <!-- Commented out as only available in 5.8.13 -->
+                    @error('filterSubject')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                @else
+                    @if($errors->has('filterSubject'))
+                        <span>{{ $errors->first('filterSubject') }}</span>
+                    @endif
+                @endif
                 <br><input type="submit" value="Search">
                 @if($filterEmail || $filterSubject)
                     <a type="button" href="{{ route('email-log') }}">Clear filters</a>

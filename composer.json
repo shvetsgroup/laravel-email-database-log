@@ -13,6 +13,7 @@
         "illuminate/support": "~5.5",
         "illuminate/database": "~5.5",
         "illuminate/mail": "~5.5",
+        "illuminate/queue": "~5.5",
         "doctrine/dbal": "*"
     },
     "autoload": {
