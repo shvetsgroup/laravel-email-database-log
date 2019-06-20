@@ -28,11 +28,11 @@ class MailgunEvent extends Event
         //get email
         $email = $this->getEmail(strtok($request->{'event-data'}['message']['headers']['message-id'], '@'));
         if(!$email)
-            return response('Error: no E-mail found', 400)->header('Content-Type', 'text/plain');
+            return response('Error: no E-mail found', 200)->header('Content-Type', 'text/plain');
 
         //save event
         EmailLogEvent::create([
-            'messageId' => $email->id,
+            'messageId' => $email->messageId,
             'event' => $request->{'event-data'}['event'],
             'data' => json_encode($request->all()),
         ]);
