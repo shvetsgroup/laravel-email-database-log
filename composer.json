@@ -1,27 +1,30 @@
 {
-    "name": "shvetsgroup/laravel-email-database-log",
-    "description": "A simple database logger for all outgoing emails sent by Laravel website.",
+    "name": "dmcbrn/laravel-email-database-log",
+    "description": "A simple database logger for all outgoing emails sent by Laravel website - built from shvetsgroup/laravel-email-database-log.",
     "keywords": ["laravel", "markdown"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Alexander Shvets",
-            "email": "neochief@shvetsgroup.com"
+            "name": "dmcbrn",
+            "email": "dmcbrn9@gmail.com"
         }
     ],
     "require": {
-        "illuminate/support": "~5.0",
+        "illuminate/support": "~5.5",
+        "illuminate/database": "~5.5",
+        "illuminate/mail": "~5.5",
+        "illuminate/queue": "~5.5",
         "doctrine/dbal": "*"
     },
     "autoload": {
         "psr-0": {
-            "ShvetsGroup\\LaravelEmailDatabaseLog\\": "src/"
+            "Dmcbrn\\LaravelEmailDatabaseLog\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "ShvetsGroup\\LaravelEmailDatabaseLog\\LaravelEmailDatabaseLogServiceProvider"
+                "Dmcbrn\\LaravelEmailDatabaseLog\\LaravelEmailDatabaseLogServiceProvider"
             ]
         }
     }

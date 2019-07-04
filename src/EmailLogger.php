@@ -1,9 +1,10 @@
 <?php
 
-namespace ShvetsGroup\LaravelEmailDatabaseLog;
+namespace Dmcbrn\LaravelEmailDatabaseLog;
 
-use DB;
 use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Support\Facades\Storage;
+use Dmcbrn\LaravelEmailDatabaseLog\LaravelEvents\EmailLogged;
 
 class EmailLogger
 {
@@ -16,7 +17,19 @@ class EmailLogger
     {
         $message = $event->message;
 
-        DB::table('email_log')->insert([
+        $messageId = strtok($message->getId(), '@');
+
+        $attachments = [];
+        foreach ($message->getChildren() as $child) {
+            //docs for this below: http://phpdox.de/demo/Symfony2/classes/Swift_Mime_SimpleMimeEntity/getChildren.xhtml
+            if(in_array(get_class($child),['Swift_EmbeddedFile','Swift_Attachment'])) {
+                $attachmentPath = config('email_log.folder') . '/' . $messageId . '/' . $child->getFilename();
+                Storage::put($attachmentPath, $child->getBody());
+                $attachments[] = $attachmentPath;
+            }
+        }
+
+        $emailLog = EmailLog::create([
             'date' => date('Y-m-d H:i:s'),
             'from' => $this->formatAddressField($message, 'From'),
             'to' => $this->formatAddressField($message, 'To'),
@@ -25,8 +38,12 @@ class EmailLogger
             'subject' => $message->getSubject(),
             'body' => $message->getBody(),
             'headers' => (string)$message->getHeaders(),
-            'attachments' => $message->getChildren() ? implode("\n\n", $message->getChildren()) : null,
+            'attachments' => empty($attachments) ? null : implode(', ', $attachments),
+            'messageId' => $messageId,
+            'mail_driver' => config('mail.driver'),
         ]);
+
+        event(new EmailLogged($emailLog));
     }
 
     /**
