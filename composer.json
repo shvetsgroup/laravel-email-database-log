@@ -17,7 +17,7 @@
         "doctrine/dbal": "*"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Dmcbrn\\LaravelEmailDatabaseLog\\": "src/"
         }
     },
