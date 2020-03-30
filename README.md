@@ -4,6 +4,7 @@ A simple database logger for all outgoing emails sent by Laravel website.
 Forked from ShvetsGroup\LaravelEmailDatabaseLog.
 
 For Laravel 5.8 - use 2.* versions
+For Laravel 6 - use 3.* versions
 
 # Installation
 
