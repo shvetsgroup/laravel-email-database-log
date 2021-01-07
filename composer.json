@@ -1,12 +1,12 @@
 {
-    "name": "shvetsgroup/laravel-email-database-log",
+    "name": "tdubouchet/laravel-email-database-log",
     "description": "A simple database logger for all outgoing emails sent by Laravel website.",
     "keywords": ["laravel", "markdown"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Alexander Shvets",
-            "email": "neochief@shvetsgroup.com"
+            "name": "Thibaud Dubouchet",
+            "email": "tdubouchet@warmango.fr"
         }
     ],
     "require": {

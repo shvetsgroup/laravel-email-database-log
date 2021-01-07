@@ -22,7 +22,6 @@ class EmailLog extends Migration
             $table->string('subject');
             $table->text('body');
             $table->text('headers')->nullable();
-            $table->text('attachments')->nullable();
         });
     }
 
