@@ -17,13 +17,13 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
             EmailLogger::class,
         ],
     ];
-    
+
     public function register()
     {
 //        $this->app->make('Dmcbrn\LaravelEmailDatabaseLog\EmailLogController');
-        
-        $this->loadViewsFrom(__DIR__.'/../views','email-logger');
-        
+
+        $this->loadViewsFrom(__DIR__ . '/../views','email-logger');
+
         $this->mergeConfigFrom(
             __DIR__ . '/../config/email_log.php', 'email_log'
         );

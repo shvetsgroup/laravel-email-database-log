@@ -48,7 +48,7 @@ Config contains three parameters:
 ```php
 //name of the folder where the attachments will be saved
 'folder' => env('EMAIL_LOG_ATTACHMENT_FOLDER','email_log_attachments'),
-//to prevent access to list of logged emails add a middleware
+//to prevent access to list of logged emails add a middlewares. Multiple middlewares can be used (separate by comma)
 'access_middleware' => env('EMAIL_LOG_ACCESS_MIDDLEWARE',null),
 //this parameter prefixes the routes for listing of logged emails
 'routes_prefix' => env('EMAIL_LOG_ROUTES_PREFIX',''),
@@ -87,7 +87,7 @@ You can review sent emails using the following URI `/email-log`.
 
 You can prefix this URI by adding something like `EMAIL_LOG_ROUTES_PREFIX=prefix/` to your .env file.
 
-You can protect this URI using middleware by adding something like `EMAIL_LOG_ACCESS_MIDDLEWARE=auth` to your .env file.
+You can protect this URI using middleware by adding something like `EMAIL_LOG_ACCESS_MIDDLEWARE=auth,landlord` to your .env file.
 
 ## MailGun webhooks
 
