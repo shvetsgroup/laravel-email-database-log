@@ -2,28 +2,20 @@
 
 namespace Dmcbrn\LaravelEmailDatabaseLog;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Mail\Events\MessageSending;
 
-class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
+class LaravelEmailDatabaseLogServiceProvider extends ServiceProvider
 {
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        MessageSending::class => [
-            EmailLogger::class,
-        ],
-    ];
-    
+
     public function register()
     {
 //        $this->app->make('Dmcbrn\LaravelEmailDatabaseLog\EmailLogController');
-        
-        $this->loadViewsFrom(__DIR__.'/../views','email-logger');
-        
+
+        $this->app['events']->listen(MessageSending::class, EmailLogger::class);
+
+        $this->loadViewsFrom(__DIR__ . '/../views','email-logger');
+
         $this->mergeConfigFrom(
             __DIR__ . '/../config/email_log.php', 'email_log'
         );
@@ -36,8 +28,6 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
      */
     public function boot()
     {
-        parent::boot();
-
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->publishes([

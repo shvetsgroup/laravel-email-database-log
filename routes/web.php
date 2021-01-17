@@ -1,8 +1,10 @@
 <?php
+$accessMiddlewares = config('email_log.access_middleware', null) 
+    ? explode(',' , config('email_log.access_middleware')) : [];
 
 Route::group([
     'prefix' => config('email_log.routes_prefix', ''),
-    'middleware' => array_filter(['web',config('email_log.access_middleware', null)]),
+    'middleware' => array_merge(['web'], $accessMiddlewares),
 ], function(){
     Route::get('/email-log', ['as' => 'email-log', 'uses' => 'Dmcbrn\LaravelEmailDatabaseLog\EmailLogController@index']);
     Route::post('/email-log/delete', ['as' => 'email-log.delete-old', 'uses' => 'Dmcbrn\LaravelEmailDatabaseLog\EmailLogController@deleteOldEmails']);
