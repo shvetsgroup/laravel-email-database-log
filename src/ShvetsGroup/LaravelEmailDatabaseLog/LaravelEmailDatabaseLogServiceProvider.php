@@ -26,7 +26,14 @@ class LaravelEmailDatabaseLogServiceProvider extends EventServiceProvider
     public function boot()
     {
         parent::boot();
-
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
+    
+    
+    public function register()
+    {
+        $this->publishes([
+           __DIR__ . '/../../database/migrations'=> database_path('migrations'),
+        ], 'laravel-email-database-log-migration');
+    }
+
 }

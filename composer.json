@@ -11,7 +11,7 @@
     ],
     "require": {
         "illuminate/support": "~5.0|~6.0|~7.0|~8.0",
-        "doctrine/dbal": "*"
+        "doctrine/dbal": "^2.10"
     },
     "autoload": {
         "psr-0": {
