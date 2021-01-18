@@ -11,6 +11,11 @@ Laravel Email Database Log can be installed via [composer](http://getcomposer.or
 ```bash
 composer require shvetsgroup/laravel-email-database-log
 ```
+for publish migration files
+```bash
+php artisan vendor:publish --tag=laravel-email-database-log-migration
+php artisan migrate
+```
 
 ## Step 2: Configuration
 
