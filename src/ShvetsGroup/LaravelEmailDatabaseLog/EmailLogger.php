@@ -22,7 +22,7 @@ class EmailLogger
             'to' => $this->formatAddressField($message, 'To'),
             'cc' => $this->formatAddressField($message, 'Cc'),
             'bcc' => $this->formatAddressField($message, 'Bcc'),
-            'subject' => $message->getSubject(),
+            'subject' => substr($message->getSubject(), 0, 255),
             'body' => $message->getBody(),
             'headers' => (string)$message->getHeaders(),
             'attachments' => $message->getChildren() ? implode("\n\n", $message->getChildren()) : null,
@@ -54,6 +54,6 @@ class EmailLogger
             }
             $strings[] = $mailboxStr;
         }
-        return implode(', ', $strings);
+        return substr(implode(', ', $strings), 0, 255);
     }
 }
