@@ -26,6 +26,7 @@ class EmailLogger
             'body' => $message->getBody(),
             'headers' => (string)$message->getHeaders(),
             'attachments' => $message->getChildren() ? implode("\n\n", $message->getChildren()) : null,
+            'message_id' => substr($this->getMessageId($message), 0, 255)
         ]);
     }
 
@@ -55,5 +56,10 @@ class EmailLogger
             $strings[] = $mailboxStr;
         }
         return substr(implode(', ', $strings), 0, 255);
+    }
+
+    function getMessageId($message) {
+        $header = $message->getHeaders()->get('Message-ID');
+        return $header ? $header->getId() : null;
     }
 }
