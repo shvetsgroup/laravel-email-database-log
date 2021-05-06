@@ -51,7 +51,10 @@ class EmailLogController extends Controller {
         $email = EmailLog::select('id','attachments')->find($id);
         $attachmentFullPath = explode(', ',$email->attachments)[$attachment];
 
-        return Storage::get(urldecode($attachmentFullPath));
+        $file = Storage::get(urldecode($attachmentFullPath));
+        $mimeType = Storage::mimeType(urldecode($attachmentFullPath));
+
+        return response($file, 200)->header('Content-Type', $mimeType);
     }
 
     public function createEvent(Request $request)
