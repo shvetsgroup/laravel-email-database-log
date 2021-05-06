@@ -16,7 +16,7 @@
                 <div>{!! $email->body !!}</div>
             </li>
             <li>Attachments:
-                @if(count($attachmentsArray = array_filter(explode(',',$email->attachments))) > 0)
+                @if(count($attachmentsArray = array_filter(explode(', ',$email->attachments))) > 0)
                     <ul>
                         @foreach($attachmentsArray as $key => $attachment)
                             <li>

@@ -49,7 +49,7 @@ class EmailLogController extends Controller {
     public function fetchAttachment($id,$attachment)
     {
         $email = EmailLog::select('id','attachments')->find($id);
-        $attachmentFullPath = explode(',',$email->attachments)[$attachment];
+        $attachmentFullPath = explode(', ',$email->attachments)[$attachment];
 
         return Storage::get(urldecode($attachmentFullPath));
     }
