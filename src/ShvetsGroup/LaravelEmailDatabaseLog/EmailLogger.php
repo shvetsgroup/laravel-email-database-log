@@ -30,6 +30,7 @@ class EmailLogger
 			'body' => $message->getBody()->bodyToString(),
 			'headers' => $message->getHeaders()->toString(),
 			'attachments' => $this->saveAttachments($message),
+            'message_id' => substr($this->getMessageId($message), 0, 255)
 		]);
 	}
 
@@ -44,7 +45,8 @@ class EmailLogger
 	{
 		$headers = $message->getHeaders();
 
-		return $headers->get($field)?->getBodyAsString();
+		$field = $headers->get($field)?->getBodyAsString();
+        return $field ? substr($field, 0, 255) : null;
 	}
 
 	/**
@@ -63,4 +65,9 @@ class EmailLogger
 			->map(fn(DataPart $part) => $part->toString())
 			->implode("\n\n");
 	}
+
+    function getMessageId($message) {
+        $header = $message->getHeaders()->get('Message-ID');
+        return $header ? $header->getId() : null;
+    }
 }
